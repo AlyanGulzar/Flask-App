@@ -1,0 +1,39 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Contacts</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Contact Form</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.fname.label }} {{ form.fname(size=20) }}
+        {% for error in form.fname.errors %}
+            <span class="error">{{ error }}</span>
+        {% endfor %}
+
+        {{ form.lname.label }} {{ form.lname(size=20) }}
+        {% for error in form.lname.errors %}
+            <span class="error">{{ error }}</span>
+        {% endfor %}
+
+        {{ form.email.label }} {{ form.email(size=20) }}
+        {% for error in form.email.errors %}
+            <span class="error">{{ error }}</span>
+        {% endfor %}
+
+        {{ form.submit() }}
+    </form>
+
+    <h2>All Contacts</h2>
+    <ul>
+        {% for contact in contacts %}
+            <li>{{ contact.fname }} {{ contact.lname }} ({{ contact.email }}) 
+                <a href="{{ url_for('delete', sno=contact.sno) }}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
